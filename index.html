@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Bank App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            color: #4CAF50;
+        }
+
+        #loginSection {
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: auto;
+            width: 300px;
+        }
+
+       #accountSection{
+        background-color: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: auto;
+            width: 300px;
+       }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #balance {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Bank Login</h1>
+    <div id="loginSection">
+        <input type="text" id="usernameInput" placeholder="Enter your username">
+        <button onclick="login()">Login</button>
+    </div>
+    <div id="accountSection" style="display: none;">
+        <h1>Welcome, <span id="usernameDisplay"></span>!</h1>
+        <p id="balance">Balance: Rs.0</p>
+        <input type="number" id="amountInput" placeholder="Enter amount">
+        <button onclick="credit()">Credit</button>
+        <button onclick="debit()">Debit</button>
+        <button onclick="logout()">Logout</button>
+    </div>
+    <script>
+        let balance = 0;
+
+        function login() {
+            var username = document.getElementById("usernameInput").value;
+            if (username) {
+                document.getElementById("usernameDisplay").innerText = username;
+                document.getElementById("loginSection").style.display = "none";
+                document.getElementById("accountSection").style.display = "block";
+            }
+        }
+
+        function credit() {
+            var amount = parseFloat(document.getElementById("amountInput").value);
+            if (amount > 0) {
+                balance += amount;
+                updateBalance();
+            }
+        }
+
+        function debit() {
+            var amount = parseFloat(document.getElementById("amountInput").value);
+            if (amount > 0 && amount <= balance) {
+                balance -= amount;
+                updateBalance();
+            }
+        }
+
+        function updateBalance() {
+            document.getElementById("balance").innerText = "Balance: Rs." + balance;
+            document.getElementById("amountInput").value = '';
+        }
+
+        function logout() {
+            document.getElementById("loginSection").style.display = "block";
+            document.getElementById("accountSection").style.display = "none";
+            document.getElementById("usernameInput").value = '';
+            balance = 0;
+            updateBalance();
+        }
+    </script>
+</body>
+
+</html>
